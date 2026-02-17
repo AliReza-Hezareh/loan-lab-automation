@@ -139,6 +139,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+API_nycklar.md
 .env
 .envrc
 .venv
