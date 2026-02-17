@@ -10,32 +10,34 @@ BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-a
 @pytest.fixture
 def loan_payload():
     return {
-        "amount": 50000,
-        "term": 12,
-        "personalNumber": "199001011234",  # Skatteverkets testnummer
-        "email": fake.email(),
-        "first_name": fake.first_name(),
-        "last_name": fake.last_name(),
-        "phone": fake.phone_number()
+        "reference_number": "199001011234",  # Skatteverkets testnummer
+        "status": "bra",
+        "loan_amount": "50000",     
+        "repayment_months": "12",  
+
     }
     
     
-def skapa_loan(loan_payload):
+def test_skapa_loan(loan_payload):
     headers = {
-        "x-api-key": API_KEY,
+        "x-admin-api-key": API_KEY,
         "Content-Type": "application/json"
     }
     
     response = requests.post(f"{BASE_URL}/partner-loan-api", json=loan_payload, headers=headers)
     assert response.status_code == 200
     
+    #tillfälligs
+    print(f"Response JSON: {response.status_code}")
+    print(f"response.json(): {response.text}")
+
+    
     in_the_data = response.json()
     assert in_the_data["success"] == True
     assert in_the_data["partner_name"] == "AliR"
     assert in_the_data["reference_number"] is not None
     
-    #tillfällig
-    print(response.json())
+    
 
 def test_get_health_status():
     
