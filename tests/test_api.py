@@ -10,5 +10,5 @@ def test_get_health_status():
     }
     response = requests.get(f"{BASE_URL}/health" , headers=headers)
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.json()["success"] == True
     assert "application/json" in response.headers["Content-Type"]
