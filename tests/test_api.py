@@ -9,6 +9,11 @@ def test_get_health_status():
         "x-api-key": API_KEY
     }
     response = requests.get(f"{BASE_URL}/health" , headers=headers)
+    assert "application/json" in response.headers["Content-Type"]
+    
+    
+    in_the_data = response.json()
+    
     assert response.status_code == 200
-    assert response.json()["success"] == True
+    assert in_the_data["success"] == True
     assert "application/json" in response.headers["Content-Type"]

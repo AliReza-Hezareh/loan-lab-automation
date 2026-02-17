@@ -1,0 +1,6 @@
+Vad	                Kommando
+API tester	        pytest
+GUI headless	    pytest
+GUI headed	        pytest --headed
+GUI + slowmo	    pytest --headed --slowmo=500
+Debug	            set PWDEBUG=1
