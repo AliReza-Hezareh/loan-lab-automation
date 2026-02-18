@@ -2,7 +2,7 @@ import requests
 import pytest
 from faker import Faker
 fake = Faker()
-from src.config import API_KEY, BASE_URL
+from src.config import ADMIN_API_KEY, API_KEY, BASE_URL
 
 BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api"
 
@@ -10,31 +10,38 @@ BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-a
 @pytest.fixture
 def loan_payload():
     return {
-        "reference_number": "199001011234",  # Skatteverkets testnummer
-        "status": "bra",
-        "loan_amount": "50000",     
-        "repayment_months": "12",  
-
-    }
+        "first_name": fake.first_name(), 
+        "last_name": fake.last_name(),
+        "personal_number": "19900101-1234",
+        "email": fake.email(),
+        "loan_amount": 10000,
+        "address": fake.street_address(),
+        "postcode": fake.postcode(),
+        "city": fake.city(),
+        "phone": fake.phone_number(),
+        "employment_type": "employed",
+        "employer": fake.company(),
+        "income": 30000,
+        "repayment_months": 12,
+        "product_type": "personal"
+        }
     
     
 def test_skapa_loan(loan_payload):
     headers = {
-        "x-admin-api-key": API_KEY,
+        "x-api-key": API_KEY,
         "Content-Type": "application/json"
     }
     
-    response = requests.post(f"{BASE_URL}/partner-loan-api", json=loan_payload, headers=headers)
-    assert response.status_code == 200
-    
+    response = requests.post(f"{BASE_URL}", json=loan_payload, headers=headers)
     #tillfälligs
-    print(f"Response JSON: {response.status_code}")
-    print(f"response.json(): {response.text}")
-
+    print(f"STATUS: {response.status_code}")
+    print(f"BODY: {response.text}")
+    assert response.status_code == 200
     
     in_the_data = response.json()
     assert in_the_data["success"] == True
-    assert in_the_data["partner_name"] == "AliR"
+    assert "reference_number" in in_the_data
     assert in_the_data["reference_number"] is not None
     
     
