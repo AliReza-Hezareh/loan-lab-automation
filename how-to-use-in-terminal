@@ -1,6 +1,10 @@
-Vad	                Kommando
-API tester	        pytest
-GUI headless	    pytest
-GUI headed	        pytest --headed
-GUI + slowmo	    pytest --headed --slowmo=500
-Debug	            set PWDEBUG=1
+| Kommando                      |   Vad det gör  |
+| -------------------------     |   ------------    |
+| `python -m venv venv`         |   Skapar venv     |
+| `.\venv\Scripts\Activate`     |   Startar venv    |
+| `deactivate`                  |   Stänger venv    |
+pytest                          |   Kör API tester  | 
+pytest                              GUI headless	    
+pytest --headed                     GUI headed	        
+pytest --headed --slowmo=500        GUI + slowmo	    
+set PWDEBUG=1                       Debug
