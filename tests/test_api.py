@@ -33,16 +33,18 @@ def test_skapa_loan(loan_payload):
         "Content-Type": "application/json"
     }
     
+    
     response = requests.post(f"{BASE_URL}", json=loan_payload, headers=headers)
     #tillfälligs
-    print(f"STATUS: {response.status_code}")
+    #print(f"STATUS: {response.status_code}")
     print(f"BODY: {response.text}")
     assert response.status_code == 200
     
     in_the_data = response.json()
     assert in_the_data["success"] == True
-    assert "reference_number" in in_the_data
-    assert in_the_data["reference_number"] is not None
+    assert "application" in in_the_data
+    assert "reference_number" in in_the_data["application"]
+    assert in_the_data["application"]["reference_number"] is not None
     
     
 
