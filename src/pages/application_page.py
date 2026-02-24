@@ -6,12 +6,15 @@ class ApplicationPage:
         self.page = page
         
     def fylla_i_personuppgifter(self, förnamn: str, efternamn: str, personnummer: str, email: str, phone: str, address: str, postcode: str, city: str):
-        self.page.fill("#personalNumber", personnummer)
-        self.page.fill("#firstName", förnamn)
-        self.page.fill("#lastName", efternamn)
-        self.page.fill("#email", email)
-        self.page.fill("#phone", phone)
-        self.page.fill("#address", address)
-        self.page.fill("#postcode", postcode)
-        self.page.fill("#city", city)
+        self.page.get_by_label("Personnummer").fill(personnummer)
+        self.page.get_by_label("Förnamn").fill(förnamn)
+        self.page.get_by_label("Efternamn").fill(efternamn)
+        self.page.get_by_label("E-post").fill(email)
+        self.page.get_by_label("Telefonnummer").fill(phone)
+        self.page.get_by_label("Adress").fill(address)
+        self.page.get_by_label("Postnummer").fill(postcode)
+        self.page.get_by_label("Stad").fill(city)
+        
+    def click_nästa(self):
+        self.page.locator("button:has-text('Nästa')").click()
         
