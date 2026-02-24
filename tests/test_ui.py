@@ -13,6 +13,7 @@ def till_personuppgifter(page: Page) -> Page:
     product_page.select_produkt("Bil")
     product_page.click_next()
     expect(page.get_by_role("heading", name="Personuppgifter")).to_be_visible()
+    return page
     
 
 def test_select_product(page):
@@ -24,6 +25,11 @@ def test_select_product(page):
     product_page.select_produkt("Bil")
     product_page.click_next()
     
+    expect(page.get_by_role("heading", name="Personuppgifter")).to_be_visible()
+    
+def test_fylla_i_personuppgifter(till_personuppgifter: Page):
+    application_page = ApplicationPage(till_personuppgifter)
+    
     application_page.fylla_i_personuppgifter(
         personnummer="900101-1234",
         förnamn=fake.first_name(),
@@ -34,4 +40,4 @@ def test_select_product(page):
         postcode=fake.postcode(),
         city=fake.city()
     )
-    application_page.click_next()
+    expect(till_personuppgifter.get_by_label("Personnummer")).to_have_value("900101-1234")
