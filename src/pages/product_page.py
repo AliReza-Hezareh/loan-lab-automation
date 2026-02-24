@@ -4,7 +4,7 @@ from playwright.sync_api import Page
 class ProductPage:
     def __init__(self, page: Page):
         self.page = page
-        self.url = "https://souderbroder-loan-lab.lovable.app/product"
+        self.url = "https://souderbroder-loan-lab.lovable.app"
         
     def navigate(self):
         self.page.goto(self.url)
@@ -14,3 +14,5 @@ class ProductPage:
         
     def click_next(self):
         self.page.get_by_role("button", name="Nästa").click()
+        
+        
