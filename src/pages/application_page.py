@@ -1,20 +1,17 @@
 from playwright.sync_api import Page
 
 
-class applicationPage:
+class ApplicationPage:
     def __init__(self, page: Page):
         self.page = page
-        self.url = "https://souderbroder-loan-lab.lovable.app"
         
-        self.first_name_input = "#firstName"
-        self.last_name_input = "#lastName"
-        self.personal_number_input = "#personalNumber"
-        self.email_input = "#email"
-        self.address_input = "#address"
-        self.postcode_input = "#postcode"
-        self.city_input = "#city"
-        self.phone_input = "#phone"
-        self.employment_type_dropdown = "#employmentType"
-        self.employer_input = "#employer"
-        self.income_input = "#income"
-        self.submit_button = "text=Submit"
+    def fylla_i_personuppgifter(self, förnamn: str, efternamn: str, personnummer: str, email: str, phone: str, address: str, postcode: str, city: str):
+        self.page.fill("#personalNumber", personnummer)
+        self.page.fill("#firstName", förnamn)
+        self.page.fill("#lastName", efternamn)
+        self.page.fill("#email", email)
+        self.page.fill("#phone", phone)
+        self.page.fill("#address", address)
+        self.page.fill("#postcode", postcode)
+        self.page.fill("#city", city)
+        
