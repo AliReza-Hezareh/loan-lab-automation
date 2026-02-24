@@ -15,6 +15,6 @@ class ApplicationPage:
         self.page.get_by_label("Postnummer").fill(postcode)
         self.page.get_by_label("Stad").fill(city)
         
-    def click_nästa(self):
+    def click_next(self):
         self.page.locator("button:has-text('Nästa')").click()
         
