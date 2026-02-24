@@ -1,7 +1,19 @@
+import pytest 
+from playwright.sync_api import Page, expect
 from src.pages.product_page import ProductPage
 from src.pages.application_page import ApplicationPage
 from faker import Faker
+
 fake = Faker()
+
+@pytest.fixture
+def till_personuppgifter(page: Page) -> Page:
+    product_page = ProductPage(page)
+    product_page.navigate()
+    product_page.select_produkt("Bil")
+    product_page.click_next()
+    expect(page.get_by_role("heading", name="Personuppgifter")).to_be_visible()
+    
 
 def test_select_product(page):
     product_page = ProductPage(page)
