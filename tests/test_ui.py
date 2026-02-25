@@ -31,7 +31,7 @@ def test_fylla_i_personuppgifter(till_personuppgifter: Page):
     application_page = ApplicationPage(till_personuppgifter)
     
     application_page.fylla_i_personuppgifter(
-        personnummer="900101-1234",
+        personnummer="2601072396",
         förnamn=fake.first_name(),
         efternamn=fake.last_name(),
         email=fake.email(),
@@ -40,7 +40,7 @@ def test_fylla_i_personuppgifter(till_personuppgifter: Page):
         postcode=fake.postcode(),
         city=fake.city()
     )
-    expect(till_personuppgifter.get_by_label("Personnummer")).to_have_value("900101-1234")
+    expect(till_personuppgifter.get_by_label("Personnummer")).to_have_value("2601072396")
     
 
 
@@ -54,7 +54,7 @@ def test_fill_income_information(page):
     product_page.click_next()
 
     application_page.fylla_i_personuppgifter(
-        personnummer="9001011234",
+        personnummer="2601072396",
         förnamn=fake.first_name(),
         efternamn=fake.last_name(),
         email=fake.email(),
@@ -68,7 +68,8 @@ def test_fill_income_information(page):
     income_page.fylla_inkomst(
         inkomst="30000",
         anställningsform="Visstidsanställd",
-        arbetsgivare="Test AB"
+        arbetsgivare="Test AB",
+        sidoinkomst="5000"
     )
 
     income_page.click_next()
