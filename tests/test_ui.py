@@ -2,6 +2,7 @@ import pytest
 from playwright.sync_api import Page, expect
 from src.pages.product_page import ProductPage
 from src.pages.application_page import ApplicationPage
+from src.pages.income_page import inkomstupppgifterPage
 from faker import Faker
 
 fake = Faker()
@@ -18,7 +19,6 @@ def till_personuppgifter(page: Page) -> Page:
 
 def test_select_product(page):
     product_page = ProductPage(page)
-    application_page = ApplicationPage(page)
     
     
     product_page.navigate()
@@ -41,3 +41,38 @@ def test_fylla_i_personuppgifter(till_personuppgifter: Page):
         city=fake.city()
     )
     expect(till_personuppgifter.get_by_label("Personnummer")).to_have_value("900101-1234")
+    
+
+
+def test_fill_income_information(page):
+    product_page = ProductPage(page)
+    application_page = ApplicationPage(page)
+    income_page = inkomstupppgifterPage(page)
+
+    # Gå till steg 2
+    product_page.navigate()
+    product_page.select_produkt("Bil")
+    product_page.click_next()
+
+    application_page.fylla_i_personuppgifter(
+        personal_number="19900101-1234",
+        first_name="Test",
+        last_name="Testsson",
+        email="test@test.se",
+        phone="0701234567",
+        address="Testgatan 1",
+        postcode="12345",
+        city="Stockholm"
+    )
+    application_page.click_next()
+
+    income_page.fylla_inkomst(
+        inkomst="30000",
+        anställningsform="employed",
+        arbetsgivare="Test AB"
+    )
+
+    income_page.click_next()
+
+    page.get_by_role("heading", name="Lånebelopp").wait_for()
+    assert page.get_by_role("heading", name="Lånebelopp").is_visible()
