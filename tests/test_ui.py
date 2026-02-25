@@ -49,26 +49,25 @@ def test_fill_income_information(page):
     application_page = ApplicationPage(page)
     income_page = inkomstupppgifterPage(page)
 
-    # Gå till steg 2
     product_page.navigate()
     product_page.select_produkt("Bil")
     product_page.click_next()
 
     application_page.fylla_i_personuppgifter(
-        personal_number="19900101-1234",
-        first_name="Test",
-        last_name="Testsson",
-        email="test@test.se",
-        phone="0701234567",
-        address="Testgatan 1",
-        postcode="12345",
-        city="Stockholm"
+        personnummer="9001011234",
+        förnamn=fake.first_name(),
+        efternamn=fake.last_name(),
+        email=fake.email(),
+        phone=fake.phone_number(),
+        address=fake.street_address(),
+        postcode=fake.postcode(),
+        city=fake.city()
     )
     application_page.click_next()
 
     income_page.fylla_inkomst(
         inkomst="30000",
-        anställningsform="employed",
+        anställningsform="Visstidsanställd",
         arbetsgivare="Test AB"
     )
 
