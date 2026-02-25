@@ -5,18 +5,25 @@ class inkomstupppgifterPage:
         self.page = page
         
     def fylla_i_inkomst(self, inkomst: str):
-        self.page.get_by_label("#monthlyIncome").fill(inkomst)
+        self.page.wait_for_selector("#monthlyIncome")
+        self.page.locator("#monthlyIncome").fill(inkomst)
         
     def fyll_i_Anställningsform(self, anställningsform: str):
-        self.page.get_by_label("#employmentType").select_option(anställningsform)
-    
+        self.page.wait_for_selector("#employmentType")
+        self.page.locator("#employmentType").click()
+        self.page.get_by_text(anställningsform).click()
+        
+            
     def fyll_i_arbetsgivare(self, arbetsgivare: str):
-        self.page.get_by_label("#employer").fill(arbetsgivare)
+        self.page.wait_for_selector("#employer")
+        self.page.locator("#employer").fill(arbetsgivare)
     
     def fyll_i_Sidoinkomst(self, sidoinkomst: str):
-        self.page.get_by_label("#sideIncome").fill(sidoinkomst)
+        self.page.wait_for_selector("#sideIncome")
+        self.page.locator("#sideIncome").fill(sidoinkomst)
     
     def fylla_inkomst(self, inkomst: str, anställningsform: str, arbetsgivare: str, sidoinkomst: str = "0"):
+        self.page.get_by_role("heading", name="Inkomstuppgifter").wait_for()
         self.fylla_i_inkomst(inkomst)
         self.fyll_i_Anställningsform(anställningsform)
         self.fyll_i_arbetsgivare(arbetsgivare)
