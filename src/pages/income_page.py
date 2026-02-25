@@ -5,16 +5,16 @@ class inkomstupppgifterPage:
         self.page = page
         
     def fylla_i_inkomst(self, inkomst: str):
-        self.page.get_by_label("Månadsinkomst (SEK) *").fill(inkomst)
+        self.page.get_by_label("#monthlyIncome").fill(inkomst)
         
     def fyll_i_Anställningsform(self, anställningsform: str):
-        self.page.get_by_label("Anställningsform *").select_option(anställningsform)
+        self.page.get_by_label("#employmentType").select_option(anställningsform)
     
     def fyll_i_arbetsgivare(self, arbetsgivare: str):
-        self.page.get_by_label("Arbetsgivare *").fill(arbetsgivare)
+        self.page.get_by_label("#employer").fill(arbetsgivare)
     
     def fyll_i_Sidoinkomst(self, sidoinkomst: str):
-        self.page.get_by_label("Sidoinkomst (SEK/månad)").fill(sidoinkomst)
+        self.page.get_by_label("#sideIncome").fill(sidoinkomst)
     
     def fylla_inkomst(self, inkomst: str, anställningsform: str, arbetsgivare: str, sidoinkomst: str = "0"):
         self.fylla_i_inkomst(inkomst)
