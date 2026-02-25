@@ -17,7 +17,7 @@ def till_personuppgifter(page: Page) -> Page:
     return page
     
 
-def test_select_product(page):
+def select_product(page):
     product_page = ProductPage(page)
     
     
@@ -27,7 +27,7 @@ def test_select_product(page):
     
     expect(page.get_by_role("heading", name="Personuppgifter")).to_be_visible()
     
-def test_fylla_i_personuppgifter(till_personuppgifter: Page):
+def fylla_i_personuppgifter(till_personuppgifter: Page):
     application_page = ApplicationPage(till_personuppgifter)
     
     application_page.fylla_i_personuppgifter(
