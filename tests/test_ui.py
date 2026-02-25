@@ -4,6 +4,7 @@ from src.pages.product_page import ProductPage
 from src.pages.application_page import ApplicationPage
 from src.pages.income_page import inkomstupppgifterPage
 from src.pages.loan_belopp_page import loan_amountPage
+from src.pages.sammanställning_page import sammanställningPage
 from faker import Faker
 
 fake = Faker()
@@ -50,6 +51,7 @@ def test_fill_income_information(page):
     application_page = ApplicationPage(page)
     income_page = inkomstupppgifterPage(page)
     loan_page = loan_amountPage(page)
+    samman_page = sammanställningPage(page)
 
     product_page.navigate()
     product_page.select_produkt("Bil")
@@ -81,8 +83,19 @@ def test_fill_income_information(page):
     
 
     loan_page.fylla_i_lånebelopp("150000")
+    slider = page.locator("input[type='range']")
+    slider.fill("24")
     loan_page.klicka_beräkna()
     loan_page.click_next()
 
     page.get_by_role("heading", name="Sammanställning").wait_for()
     assert page.get_by_role("heading", name="Sammanställning").is_visible()
+    
+
+    samman_page.verify_page_loaded()
+    samman_page.verify_loan_amount_visible("150000")
+
+    samman_page.click_next()
+
+    page.get_by_role("heading", name="Bekräftelse").wait_for()
+    assert page.get_by_role("heading", name="Bekräftelse").is_visible()
