@@ -90,7 +90,7 @@ def test_fill_income_information(page):
     assert page.get_by_role("heading", name="Sammanställning").is_visible()
     
     samman_page.verify_page_loaded()
-    samman_page.verify_loan_amount_visible()
+    samman_page.verify_loan_amount_visible("Lånebelopp:")
 
     samman_page.click_next()
 
