@@ -3,6 +3,7 @@ from playwright.sync_api import Page, expect
 from src.pages.product_page import ProductPage
 from src.pages.application_page import ApplicationPage
 from src.pages.income_page import inkomstupppgifterPage
+from src.pages.loan_belopp_page import loan_amountPage
 from faker import Faker
 
 fake = Faker()
@@ -48,6 +49,7 @@ def test_fill_income_information(page):
     product_page = ProductPage(page)
     application_page = ApplicationPage(page)
     income_page = inkomstupppgifterPage(page)
+    loan_page = loan_amountPage(page)
 
     product_page.navigate()
     product_page.select_produkt("Bil")
@@ -76,3 +78,11 @@ def test_fill_income_information(page):
 
     page.get_by_role("heading", name="Lånebelopp").wait_for()
     assert page.get_by_role("heading", name="Lånebelopp").is_visible()
+    
+
+    loan_page.fylla_i_lånebelopp("150000")
+    loan_page.klicka_beräkna()
+    loan_page.click_next()
+
+    page.get_by_role("heading", name="Sammanställning").wait_for()
+    assert page.get_by_role("heading", name="Sammanställning").is_visible()
