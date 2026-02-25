@@ -5,11 +5,11 @@ class sammanställningPage:
         self.page = page
         
     def verify_page_loaded(self):
-        self.page.get_by_role("heading", name="sammanställning").wait_for()
+        self.page.get_by_role("heading", name="Sammanställning").wait_for()
     
     def verify_loan_amount_visible(self, amount : str):
         self.page.get_by_text(amount).wait_for()
         
         
     def click_next(self):
-        self.page.locator("button:has-text('Nästa')").click()
+        self.page.locator("button:has-text('Skicka ansökan')").click()
