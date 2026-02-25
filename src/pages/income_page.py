@@ -5,15 +5,22 @@ class inkomstupppgifterPage:
         self.page = page
         
     def fylla_i_inkomst(self, inkomst: str):
-        self.page.get_by_label("Månadsinkomst").fill(inkomst)
+        self.page.get_by_label("Månadsinkomst (SEK) *").fill(inkomst)
         
     def fyll_i_Anställningsform(self, anställningsform: str):
-        self.page.get_by_label("Anställningsform").select_option(anställningsform)
+        self.page.get_by_label("Anställningsform *").select_option(anställningsform)
     
-    def fylla_inkomst(self, inkomst: str, anställningsform: str, arbetsgivare: str):
+    def fyll_i_arbetsgivare(self, arbetsgivare: str):
+        self.page.get_by_label("Arbetsgivare *").fill(arbetsgivare)
+    
+    def fyll_i_Sidoinkomst(self, sidoinkomst: str):
+        self.page.get_by_label("Sidoinkomst (SEK/månad)").fill(sidoinkomst)
+    
+    def fylla_inkomst(self, inkomst: str, anställningsform: str, arbetsgivare: str, sidoinkomst: str = "0"):
         self.fylla_i_inkomst(inkomst)
         self.fyll_i_Anställningsform(anställningsform)
-        self.page.get_by_label("Arbetsgivare").fill(arbetsgivare)
+        self.fyll_i_arbetsgivare(arbetsgivare)
+        self.fyll_i_Sidoinkomst(sidoinkomst)
         
     def click_next(self):
         self.page.locator("button:has-text('Nästa')").click()
