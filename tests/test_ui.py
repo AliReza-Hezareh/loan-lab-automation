@@ -94,5 +94,5 @@ def test_fill_income_information(page):
 
     samman_page.click_next()
 
-    page.get_by_role("heading", name="Bekräftelse").wait_for()
-    assert page.get_by_role("heading", name="Bekräftelse").is_visible()
+    page.get_by_role("heading", name="Grattis").wait_for()
+    assert page.get_by_role("heading", name="Grattis").is_visible()
