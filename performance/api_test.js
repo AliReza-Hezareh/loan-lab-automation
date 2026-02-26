@@ -2,7 +2,7 @@ import http from "k6/http";
 import { sleep, check } from "k6";
 
 export const options = { vus : 1, duration: "30s" };
-const url = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api";
+const API_BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api";
 
 export default function() {
 
@@ -31,7 +31,7 @@ export default function() {
         product_type: "personal"
     });
 
-        const response = http.post(url, payload, params);
+        const response = http.post(API_BASE_URL, payload, params);
 
         check(response, {
             "status is 200": (r) => r.status === 200,
