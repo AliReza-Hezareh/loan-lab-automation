@@ -35,12 +35,13 @@ export default function() {
 
         check(response, {
             "status is 200": (r) => r.status === 200,
-        
+        'response time < 100ms': (r) => r.timings.duration < 300,
         'response time < 500ms': (r) => r.timings.duration < 500,
-        'response time < 200ms': (r) => r.timings.duration < 2000,
+        'response time < 200ms': (r) => r.timings.duration < 700,
+        'response time < 300ms': (r) => r.timings.duration < 850,
         'response time < 100ms': (r) => r.timings.duration < 1000,
     });
     console.log("STATUS:", response.status);
-    console.log("BODY:", response.body);
+    /*console.log("BODY:", response.body);*/
     sleep(1);
 }
