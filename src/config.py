@@ -5,7 +5,9 @@ try:
 except ImportError:
     print("python-dotenv is not installed. Make sure to install it to load environment variables from a .env file.")
 
-BASE_URL = "https://souderbroder-loan-lab.lovable.app"
+API_BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api"
+GUI_BASE_URL = "https://souderbroder-loan-lab.lovable.app"
+
 API_KEY = os.getenv("API_KEY")
 ADMIN_API_KEY = os.getenv("ADMIN_API_KEY")
 
