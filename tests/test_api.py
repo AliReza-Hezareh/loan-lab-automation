@@ -2,10 +2,10 @@ import requests
 import pytest
 from faker import Faker
 fake = Faker()
-from src.config import ADMIN_API_KEY, API_KEY, BASE_URL
+from src.config import ADMIN_API_KEY, API_KEY, API_BASE_URL
 from src.api.client import ApiClient
 
-BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api"
+
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def loan_payload():
         "address": fake.street_address(),
         "postcode": fake.postcode(),
         "city": fake.city(),
-        "phone": fake.phone_number(),
+        "phone": "0701234567",
         "employment_type": "employed",
         "employer": fake.company(),
         "income": 30000,
@@ -35,7 +35,7 @@ def test_skapa_loan(loan_payload):
     }
     
     
-    response = requests.post(f"{BASE_URL}", json=loan_payload, headers=headers)
+    response = requests.post(f"{API_BASE_URL}", json=loan_payload, headers=headers)
     #tillfälligs
     #print(f"STATUS: {response.status_code}")
     print(f"BODY: {response.text}")
@@ -54,7 +54,7 @@ def test_get_health_status():
     headers = {
         "x-api-key": API_KEY
     }
-    response = requests.get(f"{BASE_URL}/health" , headers=headers)
+    response = requests.get(f"{API_BASE_URL}/health" , headers=headers)
     assert "application/json" in response.headers["Content-Type"]
     
     
@@ -64,8 +64,8 @@ def test_get_health_status():
     assert in_the_data["success"] == True
     assert "application/json" in response.headers["Content-Type"]
 
-def test_get_products():
-    client = ApiClient(BASE_URL)
+def get_products():
+    client = ApiClient(API_BASE_URL)
     response = client.get_products()
     
     assert response.status_code == 200
