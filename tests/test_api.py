@@ -3,6 +3,7 @@ import pytest
 from faker import Faker
 fake = Faker()
 from src.config import ADMIN_API_KEY, API_KEY, BASE_URL
+from src.api.client import ApiClient
 
 BASE_URL = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api"
 
@@ -62,3 +63,10 @@ def test_get_health_status():
     assert response.status_code == 200
     assert in_the_data["success"] == True
     assert "application/json" in response.headers["Content-Type"]
+
+def test_get_products():
+    client = ApiClient(BASE_URL)
+    response = client.get_products()
+    
+    assert response.status_code == 200
+    assert response.json() != None
