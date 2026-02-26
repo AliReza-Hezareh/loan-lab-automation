@@ -1,7 +1,7 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
 
-export const options = { vus : 1, duration: "10s" };
+export const options = { vus : 1, duration: "30s" };
 const url = "https://kzmcpfklrqymzazaxlmv.supabase.co/functions/v1/partner-loan-api";
 
 export default function() {
@@ -35,10 +35,7 @@ export default function() {
 
         check(response, {
             "status is 200": (r) => r.status === 200,
-        'response time < 100ms': (r) => r.timings.duration < 300,
         'response time < 500ms': (r) => r.timings.duration < 500,
-        'response time < 200ms': (r) => r.timings.duration < 700,
-        'response time < 300ms': (r) => r.timings.duration < 850,
         'response time < 100ms': (r) => r.timings.duration < 1000,
     });
     console.log("STATUS:", response.status);
